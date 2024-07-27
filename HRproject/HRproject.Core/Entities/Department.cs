@@ -1,0 +1,16 @@
+﻿using HRproject.Core.IEntities;
+
+namespace HRproject.Core.Entities;
+
+public class Department : IEntity<int>
+{
+    public int Id { get; set; }
+    static int _id;
+    public string? Name { get; set; } = null!;
+
+    public Department(string? name)
+    {
+        Id = _id++;
+        Name = name;
+    }
+}
