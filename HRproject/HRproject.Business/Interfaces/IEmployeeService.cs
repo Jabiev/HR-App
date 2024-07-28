@@ -8,5 +8,6 @@ public interface IEmployeeService
     void DeleteEmployee(Employee employee);
     void UpdateEmployee(Employee existEmployee, Employee updatingemployee);
     List<Employee> ShowAll();
-    List<Employee> ShowbyDepartmebt(Department department);
+    List<Employee> ShowbyDepartment(Department department);
+    List<Employee> ShowbyPosition(Position position);
 }

@@ -51,11 +51,18 @@ public class EmployeeService : IEmployeeService
     public List<Employee> ShowAll() =>
         _employees ?? new List<Employee>();
 
-    public List<Employee> ShowbyDepartmebt(Department department)
+    public List<Employee> ShowbyDepartment(Department department)
     {
         if (department == null)
             throw new ValueNullorEmptyException("Invalid Value");
         var getEmployees = _employees?.FindAll(e => e.DepartmentId == department.Id);
+        return getEmployees ?? new List<Employee>();
+    }
+    public List<Employee> ShowbyPosition(Position position)
+    {
+        if (position == null)
+            throw new ValueNullorEmptyException("Invalid Value");
+        var getEmployees = _employees?.FindAll(e => e.PositionId == position.Id);
         return getEmployees ?? new List<Employee>();
     }
 }

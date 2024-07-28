@@ -25,12 +25,15 @@ public class DepartmentService : IDepartmentService
         _departments?.Add(department);
     }
 
-    public void Delete(int id)
+    public void Delete(int id, EmployeeService service)
     {
         var department = _departments?.Find(d => d.Id == id);
         if (department is null)
             throw new NotFoundException("Not Found Value");
-        //If any employees consist in that so =>
+        var checkany = service.ShowbyDepartment(department);
+        foreach (var item in checkany)
+            if (item.DepartmentId == department.Id)
+                throw new NotRemovedbyContainSomeItemsException("Not removed because of the values contains some values");
         _departments?.Remove(department);
     }
 

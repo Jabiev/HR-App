@@ -39,12 +39,15 @@ public class PositionService : IPositionService
         position.Name = name;
     }
 
-    public void Delete(int id)
+    public void Delete(int id, EmployeeService service)
     {
         var position = _positions?.Find(d => d.Id == id);
         if (position is null)
             throw new NotFoundException("Not Found Value");
-        //If any employees consist in that so =>
+        var checkany = service.ShowbyPosition(position);
+        foreach (var item in checkany)
+            if (item.PositionId == position.Id)
+                throw new NotRemovedbyContainSomeItemsException("Not removed because of the values contains some values");
         _positions?.Remove(position);
     }
 
