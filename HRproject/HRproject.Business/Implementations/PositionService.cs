@@ -7,6 +7,12 @@ namespace HRproject.Business.Implementations;
 public class PositionService : IPositionService
 {
     List<Position>? _positions;
+
+    public PositionService(List<Position>? positions)
+    {
+        _positions = positions;
+    }
+
     public void Add(string? name)
     {
         if (string.IsNullOrEmpty(name))
