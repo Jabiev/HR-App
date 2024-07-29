@@ -29,19 +29,17 @@ public class EmployeeService : IEmployeeService
         var exemployee = _employees?.Find(e => e.Id == existingEmployee.Id);
         if (exemployee == null)
             throw new NotFoundException("Not Found Value");
-        if ((_employees?.Find(e => e.Id == updatingEmployee.Id)) is not null)
-            throw new ValueMessException("Already Exists The Value");
         exemployee.Name = updatingEmployee.Name;
         exemployee.Surname = updatingEmployee.Surname;
         exemployee.PositionId = updatingEmployee.PositionId;
         exemployee.DepartmentId = updatingEmployee.DepartmentId;
     }
 
-    public void DeleteEmployee(Employee employee)
+    public void DeleteEmployee(Guid id)
     {
-        if (employee == null)
+        if (id == null)
             throw new ValueNullorEmptyException("Invalid Value");
-        var checkemployee = _employees?.Find(e => e.Id == employee.Id);
+        var checkemployee = _employees?.Find(e => e.Id == id);
         if (checkemployee == null)
             throw new NotFoundException("Not Found Value");
         _employees?.Remove(checkemployee);
@@ -64,5 +62,13 @@ public class EmployeeService : IEmployeeService
             throw new ValueNullorEmptyException("Invalid Value");
         var getEmployees = _employees?.FindAll(e => e.PositionId == position.Id);
         return getEmployees ?? new List<Employee>();
+    }
+
+    public Employee GetById(Guid id)
+    {
+        var employee = _employees?.Find(d => d.Id == id);
+        if (employee is null)
+            throw new NotFoundException("Not Found that with the Value");
+        return employee;
     }
 }

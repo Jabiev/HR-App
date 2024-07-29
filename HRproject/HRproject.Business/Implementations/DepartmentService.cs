@@ -14,14 +14,13 @@ public class DepartmentService : IDepartmentService
         _departments = new List<Department>();
     }
 
-    public void Create(string? name)
+    public void Create(Department department)
     {
-        if (string.IsNullOrEmpty(name))
+        if (string.IsNullOrEmpty(department.Name))
             throw new ValueNullorEmptyException("Invalid value");
-        var checkname = _departments?.Find(d => d.Name == name);
+        var checkname = _departments?.Find(d => d.Name == department.Name);
         if (checkname is not null)
             throw new ValueMessException("Already Exists the Value");
-        Department department = new(name);
         _departments?.Add(department);
     }
 
@@ -58,8 +57,6 @@ public class DepartmentService : IDepartmentService
         var checkname = _departments?.Find(d => d.Name == name);
         if (checkname is not null)
             throw new ValueMessException("Already Exists the Value");
-        if (department.Name != name)
-            throw new InconsistencyException("Inconsistent circumstance");
         department.Name = name;
     }
 }
