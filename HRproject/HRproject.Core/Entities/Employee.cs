@@ -12,10 +12,14 @@ public class Employee : IEntity<Guid>
 
     public Employee(string? name, string? surname, int positionId, int departmentId)
     {
-        Id = new Guid();
+        Id = Guid.NewGuid();
         Name = name;
         Surname = surname;
         PositionId = positionId;
         DepartmentId = departmentId;
+    }
+    public override string ToString()
+    {
+        return $"Id: {Id} | {Name} | {Surname} | Pos.ID: {PositionId} | D.ID: {DepartmentId}";
     }
 }
