@@ -29,8 +29,6 @@ public class EmployeeService : IEmployeeService
         var exemployee = _employees?.Find(e => e.Id == existingEmployee.Id);
         if (exemployee == null)
             throw new NotFoundException("Not Found Value");
-        if (DepartmentService._departments.Any(d => d.Id == updatingEmployee.DepartmentId) || PositionService._positions.Any(p => p.Id == updatingEmployee.PositionId))
-            throw new ValueMessException("Already Exists that DepartmentId or PositionId");
         exemployee.Name = updatingEmployee.Name;
         exemployee.Surname = updatingEmployee.Surname;
         exemployee.PositionId = updatingEmployee.PositionId;

@@ -7,7 +7,7 @@ namespace HRproject.Business.Implementations;
 
 public class DepartmentService : IDepartmentService
 {
-    internal static List<Department>? _departments;
+    List<Department>? _departments;
 
     public DepartmentService()
     {

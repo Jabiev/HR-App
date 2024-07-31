@@ -6,7 +6,7 @@ namespace HRproject.Business.Implementations;
 
 public class PositionService : IPositionService
 {
-    internal static List<Position>? _positions;
+    List<Position>? _positions;
 
     public PositionService()
     {
