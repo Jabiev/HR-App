@@ -37,11 +37,13 @@ while (check)
         case "cdep":
             Console.WriteLine("Please Enter The Department Name =>");
             var name = Console.ReadLine();
+            if (name.ToLower() == "e")
+                goto case "goon";
             department = new(name);
             departmentService.Create(department);
             departmentServices.Add(departmentService);
             Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.WriteLine("The Process successfully fulfillmenting...");
+            Console.WriteLine("\nThe Process successfully fulfillmenting...\n");
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("Please choose <>cemp<> , if you want to add a employee =>");
             if (option == "cemp" || option == "udep" || option == "cdep" || option == "uemp" || option == "ddep" || option == "shdep" || option == "shadep" || option == "shaemp" || option == "shemp")
@@ -50,11 +52,13 @@ while (check)
         case "cpos":
             Console.WriteLine("Please Enter The Position Name =>");
             var pname = Console.ReadLine();
+            if (pname.ToLower() == "e")
+                goto case "goon";
             position = new(pname);
             positionService.Add(position);
             positionServices.Add(positionService);
             Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.WriteLine("The Process successfully fulfillmenting...");
+            Console.WriteLine("\nThe Process successfully fulfillmenting...\n");
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("Please choose <>cemp<> , if you want to add a employee =>");
             if (option == "cemp" || option == "cpos" || option == "upos" || option == "uemp" || option == "dpos" || option == "shemp" || option == "shaemp" || option == "shposall")
@@ -71,12 +75,18 @@ while (check)
                 }
                 goto case "cpos";
             }
-            Console.WriteLine("Please Enter The Employee Name & Surname =>");
-            employee = new(Console.ReadLine(), Console.ReadLine(), position.Id, department.Id);
+            Console.Write("Please Enter The Employee Name & Surname => ");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("with clicking ENTER button gradually");
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            string? ename = Console.ReadLine();
+            if (ename.ToLower() == "e")
+                goto case "goon";
+            employee = new(ename, Console.ReadLine(), position.Id, department.Id);
             employeeService.CreateEmployee(employee);
             employeeServices.Add(employeeService);
             Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.WriteLine("The Process successfully fulfillmenting...");
+            Console.WriteLine("\nThe Process successfully fulfillmenting...\n");
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             if (option == "cemp" || option == "uemp" || option == "shemp" || option == "shaemp")
                 empcount++;
@@ -87,21 +97,27 @@ while (check)
                 Console.WriteLine("Please preliminarily now choosing <>cdep<> because of must being Department");
                 goto case "cdep";
             }
-            Console.WriteLine("Please enter the Department ID you would like to update and then new Department Name");
+            Console.Write("Please enter the Department ID you would like to update and then new Department Name ");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("with clicking ENTER button gradually");
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine($"Departments\n{string.Join("\n", departmentService.Info())}");
             int id = default;
             try
             {
                 id = int.Parse(Console.ReadLine());
+                if (id == -1)
+                    goto case "goon";
             }
             catch (Exception)
             {
-                throw new Exception("Please Enter Valid Value only number(integer) !!!");
+                throw new Exception("Please Enter Valid Value !!!");
             }
             if (departmentService?.GetById(id) is null)
                 Console.WriteLine("Not Found the item with that id  begins from 0 1 2 3.. like that");
             departmentService.Update(id, Console.ReadLine());
             Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.WriteLine("The Process successfully fulfillmenting...");
+            Console.WriteLine("\nThe Process successfully fulfillmenting...\n");
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             break;
         case "upos":
@@ -110,11 +126,17 @@ while (check)
                 Console.WriteLine("Please preliminarily now choosing <>cpos<> because of must being Position");
                 goto case "cpos";
             }
-            Console.WriteLine("Please enter the Department ID you would like to update and then new Department Name");
+            Console.Write("Please enter the Position ID you would like to update and then new Position Name ");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("with clicking ENTER button gradually");
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine($"Departments\n{string.Join("\n", positionService.Info())}");
             int idp = default;
             try
             {
                 idp = int.Parse(Console.ReadLine());
+                if (idp == -1)
+                    goto case "goon";
             }
             catch (Exception)
             {
@@ -124,7 +146,7 @@ while (check)
                 Console.WriteLine("Not Found the item with that id  begins from 0 1 2 3.. like that");
             positionService.Change(idp, Console.ReadLine());
             Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.WriteLine("The Process successfully fulfillmenting...");
+            Console.WriteLine("\nThe Process successfully fulfillmenting...\n");
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             break;
         case "uemp":
@@ -135,28 +157,40 @@ while (check)
             }
             Console.WriteLine(string.Join("\n", employeeService.ShowAll()));
             Guid idg = default;
-            Console.WriteLine("Please Enter Guid that showing now");
+            Console.WriteLine("Please Enter one of the Guid(s) which showing");
             try
             {
                 idg = Guid.Parse(Console.ReadLine());
             }
             catch (Exception)
             {
-                throw new Exception("Please Enter Valid Value only Guid that showing !!!");
+                throw new Exception("Please Enter Valid Value only one of the Guid(s) which showing !!!");
             }
             var empl = employeeService?.GetById(idg);
             if (empl is null)
                 Console.WriteLine("Not Found the item with that id  begins from 0 1 2 3.. like that");
-            Console.WriteLine("Hmm...Ok. Please Create the Employee you would like\n" +
-                "Now Please Enter Name, Surname, Choose Position(Id), Choose Deparment(Id) only Those");
+            Console.Write("Hmm...Ok. Please Create the Employee you would like\n" +
+                "Now Please Enter Name, Surname, Choose Position(Id), Choose Deparment(Id) only Those ");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("with clicking ENTER button gradually");
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             var iname = Console.ReadLine();
             var surname = Console.ReadLine();
             Console.WriteLine($"Positions\t{string.Join("\n", positionService.Info())}");
             Console.WriteLine($"Departments\t{string.Join("\n", departmentService.Info())}");
-            Employee example = new(iname, surname, int.Parse(Console.ReadLine()), int.Parse(Console.ReadLine()));
+            int pId = int.Parse(Console.ReadLine());
+            int dId = int.Parse(Console.ReadLine());
+            if (pId > position.Id || dId > department.Id)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine("\nPlease Enter Valid Value; You can choose one of the following raws\n");
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                goto case "goon";
+            }
+            Employee example = new(iname, surname, pId, dId);
             employeeService.UpdateEmployee(empl, example);
             Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.WriteLine("The Process successfully fulfillmenting...");
+            Console.WriteLine("\nThe Process successfully fulfillmenting...\n");
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             break;
         case "ddep":
@@ -167,12 +201,15 @@ while (check)
             }
             Console.WriteLine($"Departments\n{string.Join("\n", departmentService.Info())}");
             Console.WriteLine("Please Choose Deleting Department(ID)");
-            departmentService.Delete(int.Parse(Console.ReadLine()), employeeService);
+            int delId = int.Parse(Console.ReadLine());
+            if (delId == -1)
+                goto case "goon";
+            departmentService.Delete(delId, employeeService);
             depcount--;
             if (depcount == 0)
                 Console.WriteLine("It has no department. Please adding...");
             Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.WriteLine("The Process successfully fulfillmenting...");
+            Console.WriteLine("\nThe Process successfully fulfillmenting...\n");
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             break;
         case "dpos":
@@ -183,12 +220,15 @@ while (check)
             }
             Console.WriteLine($"Positions\n{string.Join("\n", positionService.Info())}");
             Console.WriteLine("Please Choose Deleting Position(ID)");
-            positionService.Delete(int.Parse(Console.ReadLine()), employeeService);
+            int dpId = int.Parse(Console.ReadLine());
+            if (dpId == -1)
+                goto case "goon";
+            positionService.Delete(dpId, employeeService);
             poscount--;
             if (poscount == 0)
                 Console.WriteLine("It has no position. Please adding...");
             Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.WriteLine("The Process successfully fulfillmenting...");
+            Console.WriteLine("\nThe Process successfully fulfillmenting...\n");
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             break;
         case "demp":
@@ -204,7 +244,7 @@ while (check)
             if (empcount == 0)
                 Console.WriteLine("It has no employee. Please adding...");
             Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.WriteLine("The Process successfully fulfillmenting...");
+            Console.WriteLine("\nThe Process successfully fulfillmenting...\n");
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             break;
         case "shdep":
@@ -251,6 +291,11 @@ while (check)
                 goto case "cpos";
             }
             Console.WriteLine($"Positions\n{string.Join("\n", positionService.Info())}");
+            break;
+        case "goon":
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.WriteLine("\nGo on; with valid values\n");
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             break;
         default:
             if (option != "exit")
