@@ -299,7 +299,10 @@ while (check)
             break;
         default:
             if (option != "exit")
-                Console.WriteLine("\nInvalid Command. And exiting...");
+            {
+                Console.WriteLine("\nInvalid Command. And restarting...");
+                goto case "goon";
+            }
             check = false;
             break;
     }
